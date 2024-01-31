@@ -7,7 +7,7 @@ Created on Fri Feb  3 08:26:53 2023
 
 """
 - Script for training the urban pluvial flood model 
-- Model architecture in file 'model.py'
+- Model architecture in file 'model_architecture.py'
 - Auxilary functions in file 'auxilary_functions.py'
 """
 
@@ -42,7 +42,9 @@ rnd_gen = np.random.default_rng(rnd_seed)
 # Using Guo's rain data: 
 # index 5: tr100
 # index 14: tr10-3
-pr_train_index = 14
+# index 0: tr2
+# index 10: tr50-2
+pr_train_index = 0
 model_weights = 'model1_weights.h5'
 
 
@@ -115,7 +117,7 @@ ij_train = list(itertools.product([pattern_names[pr_train_index]], Y_paths))
 
 for k in range(len(ij_train)): 
     ij = ij_train[k]
-    i = ij[0][2:]
+    i = ij[0]
     j = ij[1]
     if ((i in j) and ('sg2m' in j)):
         Y_train = defs.f_sgp(ij, waterdepth_file_path, padding, dem)
@@ -125,26 +127,26 @@ for k in range(len(ij_train)):
 #%% LOADING THE PATCH LOCATIONS, SPLITTING INTO TRAIN-VALIDATION SETS AND IMPLEMENTING PATCH AUGMENTATIONS 
 # Loading the patch locations 
 # "rb" because we want to read in binary mode
-with open('final_patch_location_Sgp_2m', "rb") as f: 
-    X_coords = pickle.load(f)
+# with open('final_patch_location_Sgp_2m', "rb") as f: 
+#     X_coords = pickle.load(f)
 
 # Adding data augmentation
 # Each data augmentation combination takes a name which is a number between 1 and 8
 # Refer to naming convention in Supplementary Material or 'auxilary_function.py'
-data_augmentation = [1, 2, 3, 4, 5, 6, 7, 8]
+# data_augmentation = [1, 2, 3, 4, 5, 6, 7, 8]
 # Creating a new array with the patch coordinate pairs in the first 2 columns 
 # and the rainfall pattern number in the 3rd column 
 # np.repeat to repeat the coordinate pairs as many times as there are rainfall patterns 
 # np.tile to tile the rainfall patterns as many times as there are coordinate pairs 
 # np.column_stack to have coord pairs and pattern names in the same array 
-train_comb0 = np.column_stack((np.repeat(X_coords, len(data_augmentation), axis=0), 
-                              np.tile(data_augmentation, len(X_coords))))
+# train_comb0 = np.column_stack((np.repeat(X_coords, len(data_augmentation), axis=0), 
+#                               np.tile(data_augmentation, len(X_coords))))
 
 # Adding precipitation patterns 
 # Similarly to the data augmentation technique column, lets add the precipitation 
 # event number in the last column
-train_comb = np.column_stack((train_comb0, 
-                              np.tile(pr_train_index, len(train_comb0))))
+# train_comb = np.column_stack((train_comb0, 
+#                               np.tile(pr_train_index, len(train_comb0))))
 
 
 #%% MODEL'S HYPERPAREMETERS AND INPUT DIMENSIONS 
@@ -176,13 +178,13 @@ params = {'n_channels':n_features,
 #                   26, 27, 28, 29, 33, 34, 35, 36, 37, 38, 39, 40, 41, 53, 54, 
 #                   55, 56, 71, 73, 75, 77, 78, 85]
 
-# # Building and compiling the model 
+# Building and compiling the model 
 # strategy = tf.distribute.MultiWorkerMirroredStrategy()
 # with strategy.scope():
 #     multi_model = keras.models.load_model(model_weights, 
 #                                           compile=False, options=None)
     
-#     # Freezing the weights of the encoder layers
+    # Freezing the weights of the encoder layers
 #     for i in range(len(encoder_layers)): 
 #         index_layer = encoder_layers[i]
 #         multi_model.layers[index_layer].trainable = False 
@@ -193,7 +195,7 @@ params = {'n_channels':n_features,
 #                         optimizer=optimizer, 
 #                         metrics=['mae'])
 
-# Option 2: initialize layers 
+# # Option 2: initialize layers 
 strategy = tf.distribute.MultiWorkerMirroredStrategy()
 with strategy.scope():
     multi_model = keras.models.load_model(model_weights, compile=False, options=None)
@@ -290,11 +292,26 @@ class DataGenerator(tf.keras.utils.Sequence):
 
 
 #%% TRAINING THE MODEL 
-np.random.shuffle(train_comb)
+# np.random.shuffle(train_comb)
 
-ratio = 0.2
-valid_comb = train_comb[:int(len(train_comb)*ratio)]
-train_comb = train_comb[int(len(train_comb)*ratio):]
+# ratio = 0.2
+# valid_comb = train_comb[:int(len(train_comb)*ratio)]
+# train_comb = train_comb[int(len(train_comb)*ratio):]
+
+
+import pickle 
+with open('train_comb_Sgp', 'rb') as f:
+    train_comb = pickle.load(f)
+with open('valid_comb_Sgp', 'rb') as f:
+    valid_comb = pickle.load(f)
+
+# Change the rainfall event to train the model: 
+train_comb = train_comb[:,:-1]
+train_comb = np.column_stack((train_comb, 
+                              np.tile(pr_train_index, len(train_comb))))
+valid_comb = valid_comb[:,:-1]
+valid_comb = np.column_stack((valid_comb, 
+                              np.tile(pr_train_index, len(valid_comb))))
 
 
 train_generator = DataGenerator(X_img, X_img_resx2, X_img_resx4, X_pr, pr_std, 
@@ -306,16 +323,10 @@ valid_generator = DataGenerator(X_img, X_img_resx2, X_img_resx4, X_pr, pr_std,
                                 mask, mask_resx2, mask_resx4, **params)
 
 # Defining some callbacks to avoid overfitting the model 
-early_stopping_cb = tf.keras.callbacks.EarlyStopping(patience=10)
+early_stopping_cb = tf.keras.callbacks.EarlyStopping(patience=1)
 checkpoint_cb = tf.keras.callbacks.ModelCheckpoint('model_weights_sgp_'+pattern_names[pr_train_index]+'.h5',
                                                     save_best_only=True,
                                                     monitor='val_loss')
-
-import pickle 
-with open('train_comb_Sgp_'+str(pattern_names[pr_train_index]), 'wb') as f:
-    pickle.dump(train_comb, f)
-with open('valid_comb_Sgp_'+str(pattern_names[pr_train_index]), 'wb') as f:
-    pickle.dump(valid_comb, f)
 
 
 # ... and finally, training the model! 
