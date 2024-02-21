@@ -298,12 +298,15 @@ class DataGenerator(tf.keras.utils.Sequence):
 # valid_comb = train_comb[:int(len(train_comb)*ratio)]
 # train_comb = train_comb[int(len(train_comb)*ratio):]
 
-
-import pickle 
-with open('train_comb_Sgp', 'rb') as f:
-    train_comb = pickle.load(f)
-with open('valid_comb_Sgp', 'rb') as f:
-    valid_comb = pickle.load(f)
+# Either generate the train/validation/test sets on the fly (in lines 125-173 of this code) 
+# or load the patch-rain combinations if they were already generated before. 
+# Loading patch-rain combinations that were saved before can be useful for reproducibility 
+# purposes. The combinations used to train the model can be found in the Zotero folder (see readme).
+# import pickle 
+# with open('train_comb_Sgp', 'rb') as f:
+#     train_comb = pickle.load(f)
+# with open('valid_comb_Sgp', 'rb') as f:
+#     valid_comb = pickle.load(f)
 
 # Change the rainfall event to train the model: 
 train_comb = train_comb[:,:-1]
