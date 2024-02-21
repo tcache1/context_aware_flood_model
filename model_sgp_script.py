@@ -296,7 +296,7 @@ class DataGenerator(tf.keras.utils.Sequence):
 # Either generate the train/validation/test sets on the fly (in lines 125-173 of this code) 
 # or load the patch-rain combinations if they were already generated before. 
 # Loading patch-rain combinations that were saved before can be useful for reproducibility 
-# purposes. The combinations used to train the model can be found in the Zotero folder (see readme).
+# purposes. The combinations used to train the model can be found in the Zenodo folder (see readme).
 # import pickle 
 # with open('train_comb_Sgp', 'rb') as f:
 #     train_comb = pickle.load(f)
