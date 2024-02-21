@@ -53,18 +53,15 @@ model_weights = 'model_weights_'+city_training+'_'+pr_training+'.h5'
 
 #%% FILE PATHS
 # Rainfall file path:
-rainfall_file_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\rain_pattern_str.txt'
+rainfall_file_path = '...'
 # Terrain (city) file path:
 if city=='zurich':
-    dem_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\dem\\744_dem\\744_dem_asc.asc'    
+    dem_path = '...'    
 if city=='luzern':
-    dem_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\luzern\\dem\\luzern.asc'    
+    dem_path = '...'    
 if city=='sgp':
-    dem_path = r'C:\Users\tcache1\OneDrive - Université de Lausanne\Flood_simulations_PhD2\1D_flood_emulation\Jovan\sgorchard_2m.asc'
-# The DEMs of Guo et al. 2022 ar defined by numbers 
-if city.isdigit()==True:
-    dem_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\data1D\\dem\\'+city+'_dem.asc'    
-
+    dem_path = '...
+    
 
 #%% LOADING AND PRE-PROCESSING IMAGE DATA
 # Some parameters necessary for the functions 
