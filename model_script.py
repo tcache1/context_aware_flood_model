@@ -35,14 +35,9 @@ rnd_gen = np.random.default_rng(rnd_seed)
 
 
 #%% FILE PATHS
-# Uncomment following lines if working on personal laptop:
-# dem_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\dem\\744_dem\\744_dem_asc.asc'    
-# rainfall_file_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\rain_pattern_str.txt'
-# waterdepth_file_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\waterdepth'
-# Uncomment following lines if working on cluster: 
-dem_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/744/dem/744_dem/744_dem_asc.asc'    
-rainfall_file_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/744/rain_pattern_str.txt'
-waterdepth_file_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/744/waterdepth'
+dem_path = '...'    
+rainfall_file_path = '...'
+waterdepth_file_path = '...'
 
 
 #%% LOADING AND PRE-PROCESSING IMAGE DATA
