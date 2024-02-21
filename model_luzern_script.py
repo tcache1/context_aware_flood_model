@@ -49,14 +49,9 @@ model_weights = 'model1_weights.h5'
 
 
 #%% FILE PATHS
-# Uncomment following lines if working on personal laptop:
-# dem_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\luzern\\dem\\luzern.asc'    
-# rainfall_file_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\744\\rain_pattern_str.txt'
-# waterdepth_file_path = 'C:\\Users\\tcache1\\OneDrive - Université de Lausanne\\Flood_simulations_PhD2\\1D_flood_emulation\\Guo 2020 code+data\\simulationdata\\luzern\\waterdepth'
-# Uncomment following lines if working on cluster: 
-dem_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/luzern/dem/luzern.asc'    
-rainfall_file_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/744/rain_pattern_str.txt'
-waterdepth_file_path = '/work/FAC/FGSE/IDYST/npeleg/cnn_flood/tabea_data/simulationdata/luzern/waterdepth'
+dem_path = '...'    
+rainfall_file_path = '...'
+waterdepth_file_path = '...'
 
 
 #%% LOADING AND PRE-PROCESSING IMAGE DATA
@@ -193,7 +188,7 @@ params = {'n_channels':n_features,
 #                         optimizer=optimizer, 
 #                         metrics=['mae'])
 
-# Option 2: initialize layers 
+# Option 2: initialize layers (this was the option used to retrain the model)
 strategy = tf.distribute.MultiWorkerMirroredStrategy()
 with strategy.scope():
     multi_model = keras.models.load_model(model_weights, compile=False, options=None)
