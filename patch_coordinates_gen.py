@@ -83,13 +83,13 @@ N = N+1
 
 
 if city == 'Zurich':
-    dem_path = r'C:\Users\tcache1\OneDrive - Université de Lausanne\Flood_simulations_PhD2\1D_flood_emulation\Guo 2020 code+data\simulationdata\744\dem\744_dem\744_dem_asc.asc'  
+    dem_path = r'...'  
 if city == 'Luzern': 
-    dem_path = r'C:\Users\tcache1\OneDrive - Université de Lausanne\Flood_simulations_PhD2\1D_flood_emulation\Guo 2020 code+data\simulationdata\luzern\dem\luzern.asc'
+    dem_path = r'...'
 elif city == 'Singapore':
-    dem_path = r'C:\Users\tcache1\OneDrive - Université de Lausanne\Flood_simulations_PhD2\1D_flood_emulation\Jovan\sgorchard_1m.asc'
+    dem_path = r'...'
 elif city == 'Singapore_2m':
-    dem_path = r'C:\Users\tcache1\OneDrive - Université de Lausanne\Flood_simulations_PhD2\1D_flood_emulation\Jovan\sgorchard_2m.asc'
+    dem_path = r'...'
 
 
 dem = auxilary_functions.load_dem(dem_path)
