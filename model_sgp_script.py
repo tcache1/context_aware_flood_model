@@ -35,15 +35,12 @@ rnd_gen = np.random.default_rng(rnd_seed)
 
 
 #%% DEFINING RAINFALL EVENTS AND PRE-TRAINED MODEL USED FOR TRANSFER LEARNING
-# For recall:
-# Using Jovan's rain data:
-# index 0: tr15, 100mm
-# index 1: tr100, 160mm
-# Using Guo's rain data: 
-# index 5: tr100
-# index 14: tr10-3
+# For recall: 
 # index 0: tr2
+# index 5: tr100
+# inded 8: tr10-2
 # index 10: tr50-2
+# index 14: tr10-3
 pr_train_index = 0
 model_weights = 'model1_weights.h5'
 
