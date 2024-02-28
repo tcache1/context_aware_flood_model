@@ -7,8 +7,12 @@ Created on Tue May  9 14:17:13 2023
 
 """
 - Script for generating flood maps using the urban pluvial flood model 
-- Model architecture in file 'model.py'
+- Model architecture in file 'model_architecture.py'
 - Auxilary functions in file 'auxilary_functions.py'
+- The user must define the following informations (refer to lines 43-55): 
+        1. which model to use (the corresponding weights must have been downloaded beforehand)
+        2. the city (i.e., terrain data)
+        3. the rainfall event (i.e., hyetograph)
 """
 
 #%% LIBRARIES AND AUXILARY FUNCTIONS  
