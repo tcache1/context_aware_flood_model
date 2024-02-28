@@ -5,10 +5,9 @@ Created on Thu Oct 13 14:12:44 2022
 @author: tcache1
 """
 
-# STEP 1: 
-    # Load the data 
-    # Generate features from the DEM 
-    # Min-max normalize the input images
+"""
+- Auxilary functions used to pre-process the input data
+"""
 
 import pandas as pd 
 import numpy as np
