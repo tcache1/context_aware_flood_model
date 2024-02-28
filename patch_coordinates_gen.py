@@ -5,6 +5,13 @@ Created on Fri Oct 27 12:02:58 2023
 @author: tcache1
 """
 
+"""
+- Script that extracts the patches for training (and validation) of the model 
+- The user must define: 
+        1. the city (line 19) 
+        2. the number of patches to generate (lines 79-86)
+"""
+
 import numpy as np 
 import matplotlib.pyplot as plt
 import auxilary_functions
@@ -83,13 +90,13 @@ N = N+1
 
 
 if city == 'Zurich':
-    dem_path = r'...'  
+    dem_path = '...'  
 if city == 'Luzern': 
-    dem_path = r'...'
+    dem_path = '...'
 elif city == 'Singapore':
-    dem_path = r'...'
+    dem_path = '...'
 elif city == 'Singapore_2m':
-    dem_path = r'...'
+    dem_path = '...'
 
 
 dem = auxilary_functions.load_dem(dem_path)
