@@ -11,7 +11,7 @@ Schematic Diagram of the Modeling Framework
 ![figure_framework_summary.jpg](https://github.com/tcache1/urban_flood_cnn/blob/7a38cc1c982e02baff7a1d3b810107067daae377/figure_framework_summary.jpg?raw=True)
 
 ## Model Reproducibitily
-The files necessary to reproduce the results are available [here](link). 
+The files necessary to reproduce the results are available [here](https://doi.org/10.5281/zenodo.10688079). 
 
 The files include: 
 - some data to train or test the model;
