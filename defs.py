@@ -5,6 +5,11 @@ Created on Fri Nov 10 16:08:54 2023
 @author: tcache1
 """
 
+"""
+- Function used to download the target waterdepth files in parallel
+"""
+
+
 import pandas as pd 
 import numpy as np 
 import gzip
