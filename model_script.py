@@ -7,7 +7,7 @@ Created on Fri Feb  3 08:26:53 2023
 
 """
 - Script for training the urban pluvial flood model 
-- Model architecture in file 'model.py'
+- Model architecture in file 'model_architecture.py'
 - Auxilary functions in file 'auxilary_functions.py'
 """
 
